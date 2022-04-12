@@ -25,6 +25,7 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
         super(authManager);
     }
 
+    /** if we don't have bear prefix token in our header, then authentication process not done **/
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
@@ -35,12 +36,14 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
             return;
         }
 
+        /** if contain the bear token, get the authentication **/
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
 
+    /** get authentication (token) from request **/
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest req) {
         String token = req.getHeader(SecurityConstants.HEADER_STRING);
         if (token != null) {
