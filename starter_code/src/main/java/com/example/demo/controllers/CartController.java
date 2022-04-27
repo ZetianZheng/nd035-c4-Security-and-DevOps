@@ -33,15 +33,13 @@ public class CartController {
 	private ItemRepository itemRepository;
 	
 	@PostMapping("/addToCart")
-	public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
+	public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
-		if(user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
-		if(!item.isPresent()) {
+		if (Boolean.FALSE.equals(isValidRequest(user, item))) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
 			.forEach(i -> cart.addItem(item.get()));
@@ -50,20 +48,24 @@ public class CartController {
 	}
 	
 	@PostMapping("/removeFromCart")
-	public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
+	public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
-		if(user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
-		if(!item.isPresent()) {
+		if (Boolean.FALSE.equals(isValidRequest(user, item))) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
 			.forEach(i -> cart.removeItem(item.get()));
 		cartRepository.save(cart);
 		return ResponseEntity.ok(cart);
 	}
-		
+
+	private Boolean isValidRequest(User user, Optional<Item> item) {
+		if(user == null || !item.isPresent()) {
+			return false;
+		}
+		return true;
+	}
 }

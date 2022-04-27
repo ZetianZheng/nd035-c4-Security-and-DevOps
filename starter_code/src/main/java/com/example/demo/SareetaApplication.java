@@ -9,7 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * exclude the auto security configuration->JWT impl
+ * Exclude the auto security configuration,
+ * Use JWT to do the security configuration.
  * return new BcryptPasswordEncoder class
  * **/
 @EnableJpaRepositories("com.example.demo.model.persistence.repositories")

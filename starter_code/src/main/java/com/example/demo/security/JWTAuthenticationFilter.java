@@ -56,7 +56,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     /**
-     * if the authentication part has been done successful, we will generate the token
+     * If the authentication part has been done successful, generate the token.
+     * and it needs some operations:
+     * <p>Set expiration time at 10 days later</p>
+     * <p>Use this security SECRET with HMAC512 to sign this JWT</p>
+     * <p>Add this token to the header <i>Authorization</i> with Bearer prefix</p>
+     *
      * @param req
      * @param res
      * @param chain
@@ -69,7 +74,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-
         String token = JWT.create()
                 .withSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))

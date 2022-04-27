@@ -29,8 +29,8 @@ public class User {
 
 	/**
 	 * It means this property only can write, can not be deserialized after serialized
-	 * property ->(write_only)-> serialization property
-	 * property <-(read_only)<- serialization property
+	 * property ->(write_only)-> serialized property
+	 * property <-(read_only)<- serialized property
 	 * **/
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false)
