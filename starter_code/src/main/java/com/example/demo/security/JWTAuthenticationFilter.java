@@ -25,9 +25,10 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
-    private static final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
+    private static final Logger JWTLogger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+        JWTLogger.info("AuthenticationManager created");
         this.authenticationManager = authenticationManager;
     }
 
@@ -51,7 +52,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             credentials.getPassword(),
                             new ArrayList<>()));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("IOException", e);
         }
     }
 

@@ -1,26 +1,24 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.MockConstants;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
-import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.repositories.CartRepository;
 import com.example.demo.model.persistence.repositories.ItemRepository;
 import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.ModifyCartRequest;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.example.demo.constants.MockConstants.getItem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -47,10 +45,11 @@ public class CartControllerTest {
     private ModifyCartRequest mcr;
 
     @Before
-    public void before() throws Exception {
-        when(userRepository.findByUsername("zane")).thenReturn(createUser());
-        when(itemRepository.findById(1L)).thenReturn(Optional.of(createItem()));
-        mcr = createRequest();
+    public void before(){
+        when(userRepository.findByUsername("zane")).thenReturn(MockConstants.getUser());
+        when(itemRepository.findById(1L)).thenReturn(Optional.of(getItem()));
+
+        mcr = MockConstants.getRequest();
     }
 
 
@@ -104,40 +103,4 @@ public class CartControllerTest {
         ResponseEntity<Cart> response = cartController.removeFromCart(mcr);
         assertEquals(404, response.getStatusCodeValue());
     }
-    /**
-     * create a request
-     * @return a mock request
-     */
-    private ModifyCartRequest createRequest() {
-        ModifyCartRequest mcr = new ModifyCartRequest();
-        mcr.setItemId(1L);
-        mcr.setQuantity(1);
-        mcr.setUsername("zane");
-        return mcr;
-    }
-    /**
-     * create a test user
-     * @return a mock user
-     */
-    private User createUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("zane");
-        user.setPassword("12345678");
-        user.setCart(new Cart());
-
-        return user;
-    }
-
-
-    private Item createItem() {
-        Item item = new Item();
-        item.setId(1L);
-        item.setName("testName");
-        item.setDescription("testDescription");
-        item.setPrice(BigDecimal.valueOf(100));
-        return item;
-    }
-
-
 } 
