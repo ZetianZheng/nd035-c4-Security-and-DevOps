@@ -22,6 +22,7 @@ import com.example.demo.model.requests.CreateUserRequest;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -30,17 +31,22 @@ public class UserController {
 	
 	@Autowired
 	private CartRepository cartRepository;
-	private static final Logger logger= LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
+		logger.info("get user by id {}", id);
 		return ResponseEntity.of(userRepository.findById(id));
 	}
 	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
-		return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
+		if (user == null) {
+			logger.error("Failed to find user by name: {}", username);
+			return ResponseEntity.notFound().build();
+		}
+		logger.info("{} found", username);
+		return ResponseEntity.ok(user);
 	}
 	
 	@PostMapping("/create")
@@ -54,12 +60,14 @@ public class UserController {
 		/** if length not right or confirm password not match, return 400 **/
 		if (createUserRequest.getPassword().length() < 7 ||
 		!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+			logger.error("password invalid, require: length bigger than 7 or passwords not match");
 			return ResponseEntity.badRequest().build();
 		}
 		/** otherwise save this encode password using bCryptPassword **/
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 
 		userRepository.save(user);
+		logger.info("Create new user: {}", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	

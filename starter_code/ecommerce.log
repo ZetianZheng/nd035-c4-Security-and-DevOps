@@ -1,0 +1,37 @@
+2022-05-01 00:41:54 ERROR [main] (CartController.java:63) - user not found!
+2022-05-01 00:41:54 INFO  [main] (CartController.java:40) - add to cart!
+2022-05-01 00:41:54 ERROR [main] (CartController.java:43) - user not found!
+2022-05-01 00:41:54 INFO  [main] (CartController.java:40) - add to cart!
+2022-05-01 00:42:17 ERROR [main] (OrderController.java:37) - User not found: zane
+2022-05-01 00:42:17 ERROR [main] (OrderController.java:50) - User not found: zane
+2022-05-01 00:42:17 INFO  [main] (OrderController.java:53) - zane's orders found!
+2022-05-01 00:42:17 INFO  [main] (OrderController.java:42) - null order created! user : zane
+2022-05-01 00:42:30 ERROR [main] (UserController.java:45) - Failed to find user by name: zane
+2022-05-01 00:42:30 INFO  [main] (UserController.java:37) - get user by id 1
+2022-05-01 00:42:30 INFO  [main] (UserController.java:48) - zane found
+2022-05-01 00:42:30 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:42:30 ERROR [main] (UserController.java:63) - password invalid, require: length bigger than 7 or passwords not match
+2022-05-01 00:42:30 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:42:30 INFO  [main] (UserController.java:70) - Create new user: username
+2022-05-01 00:42:33 ERROR [main] (UserController.java:45) - Failed to find user by name: zane
+2022-05-01 00:42:33 INFO  [main] (UserController.java:37) - get user by id 1
+2022-05-01 00:42:33 INFO  [main] (UserController.java:48) - zane found
+2022-05-01 00:42:33 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:42:33 ERROR [main] (UserController.java:63) - password invalid, require: length bigger than 7 or passwords not match
+2022-05-01 00:42:33 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:42:33 INFO  [main] (UserController.java:70) - Create new user: username
+2022-05-01 00:46:11 ERROR [main] (UserController.java:45) - Failed to find user by name: zane
+2022-05-01 00:46:11 INFO  [main] (UserController.java:37) - get user by id 1
+2022-05-01 00:46:11 INFO  [main] (UserController.java:48) - zane found
+2022-05-01 00:46:11 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:46:11 ERROR [main] (UserController.java:63) - password invalid, require: length bigger than 7 or passwords not match
+2022-05-01 00:46:11 INFO  [main] (UserController.java:56) - user name is: username
+2022-05-01 00:46:11 INFO  [main] (UserController.java:70) - Create new user: username
+2022-05-01 00:46:12 ERROR [main] (CartController.java:63) - user not found!
+2022-05-01 00:46:12 INFO  [main] (CartController.java:40) - add to cart!
+2022-05-01 00:46:12 ERROR [main] (CartController.java:43) - user not found!
+2022-05-01 00:46:12 INFO  [main] (CartController.java:40) - add to cart!
+2022-05-01 00:46:12 ERROR [main] (OrderController.java:37) - User not found: zane
+2022-05-01 00:46:12 ERROR [main] (OrderController.java:50) - User not found: zane
+2022-05-01 00:46:12 INFO  [main] (OrderController.java:53) - zane's orders found!
+2022-05-01 00:46:12 INFO  [main] (OrderController.java:42) - null order created! user : zane

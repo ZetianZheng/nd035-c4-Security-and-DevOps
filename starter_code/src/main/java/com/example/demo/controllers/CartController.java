@@ -3,6 +3,8 @@ package com.example.demo.controllers;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +33,19 @@ public class CartController {
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	private final Logger logger = LoggerFactory.getLogger(CartController.class);
 	
 	@PostMapping("/addToCart")
 	public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
+		logger.info("add to cart!");
 		User user = userRepository.findByUsername(request.getUsername());
 		if (user == null) {
+			logger.error("user not found!");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if (Boolean.FALSE.equals(item.isPresent())) {
+			logger.error("item not found!");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
@@ -54,10 +60,12 @@ public class CartController {
 	public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if (user == null) {
+			logger.error("user not found!");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if (Boolean.FALSE.equals(item.isPresent())) {
+			logger.error("item not found!");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
