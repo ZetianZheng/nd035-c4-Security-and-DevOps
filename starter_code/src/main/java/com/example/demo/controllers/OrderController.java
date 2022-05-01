@@ -33,24 +33,26 @@ public class OrderController {
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
+		logger.info("Info: try to find user by name: {}", username);
 		if(user == null) {
-			logger.error("User not found: {}", username);
+			logger.error("Exception: User {}, does not exist!", username);
 			return ResponseEntity.notFound().build();
 		}
 		UserOrder order = UserOrder.createFromCart(user.getCart());
 		orderRepository.save(order);
-		logger.info("{} order created! user : {}", order.getId(), username);
+		logger.info("Success: OrderId: {} has been created by user: {}", order.getId(), username);
 		return ResponseEntity.ok(order);
 	}
 	
 	@GetMapping("/history/{username}")
 	public ResponseEntity<List<UserOrder>> getOrdersForUser(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
+		logger.info("Info: try to get order for user: {}", username);
 		if(user == null) {
-			logger.error("User not found: {}", username);
+			logger.error("Exception: User {}, does not exist!", username);
 			return ResponseEntity.notFound().build();
 		}
-		logger.info("{}'s orders found!", username);
+		logger.info("Success: The order of user: {} found!", username);
 		return ResponseEntity.ok(orderRepository.findByUser(user));
 	}
 }

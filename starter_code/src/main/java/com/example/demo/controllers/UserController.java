@@ -34,18 +34,19 @@ public class UserController {
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		logger.info("get user by id {}", id);
+		logger.info("Info: try to find user by id: {}", id);
 		return ResponseEntity.of(userRepository.findById(id));
 	}
 	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
+		logger.info("Info: try to find user by name: {}", username);
 		User user = userRepository.findByUsername(username);
 		if (user == null) {
-			logger.error("Failed to find user by name: {}", username);
+			logger.error("Exception: User {}, does not exist", username);
 			return ResponseEntity.notFound().build();
 		}
-		logger.info("{} found", username);
+		logger.info("Success: User: {} found!", username);
 		return ResponseEntity.ok(user);
 	}
 	
@@ -53,21 +54,21 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		User user = new User();
 		user.setUsername(createUserRequest.getUsername());
-		logger.info("user name is: {}", createUserRequest.getUsername());
+		logger.info("Info: try to create user: {}", user.getUsername());
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
 		/** if length not right or confirm password not match, return 400 **/
 		if (createUserRequest.getPassword().length() < 7 ||
 		!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-			logger.error("password invalid, require: length bigger than 7 or passwords not match");
+			logger.error("Exception: User was not created, because password is bigger than 7 characters or password does not match");
 			return ResponseEntity.badRequest().build();
 		}
 		/** otherwise save this encode password using bCryptPassword **/
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 
 		userRepository.save(user);
-		logger.info("Create new user: {}", user.getUsername());
+		logger.info("Success: User {}, been created!", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	

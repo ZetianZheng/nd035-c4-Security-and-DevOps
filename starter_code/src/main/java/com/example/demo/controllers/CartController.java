@@ -37,15 +37,17 @@ public class CartController {
 	
 	@PostMapping("/addToCart")
 	public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
-		logger.info("add to cart!");
-		User user = userRepository.findByUsername(request.getUsername());
+		String username = request.getUsername();
+		long itemId = request.getItemId();
+		logger.info("Info: try to add item id: {} to user: {}", itemId, username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
-			logger.error("user not found!");
+			logger.error("Exception: User {}, does not exist!", username);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		Optional<Item> item = itemRepository.findById(request.getItemId());
+		Optional<Item> item = itemRepository.findById(itemId);
 		if (Boolean.FALSE.equals(item.isPresent())) {
-			logger.error("item not found!");
+			logger.error("Exception: Item id:{} not found!", itemId);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
@@ -58,14 +60,17 @@ public class CartController {
 	
 	@PostMapping("/removeFromCart")
 	public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) {
-		User user = userRepository.findByUsername(request.getUsername());
+		String username = request.getUsername();
+		long itemId = request.getItemId();
+		logger.info("Info: try to remove item id: {} from user: {}", itemId, username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
-			logger.error("user not found!");
+			logger.error("Exception: User {}, does not exist!", username);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		Optional<Item> item = itemRepository.findById(request.getItemId());
+		Optional<Item> item = itemRepository.findById(itemId);
 		if (Boolean.FALSE.equals(item.isPresent())) {
-			logger.error("item not found!");
+			logger.error("Exception: Item id:{} not found!", itemId);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
