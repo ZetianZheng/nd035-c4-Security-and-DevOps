@@ -23,17 +23,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
+/**
+ * JWTAuthenticationFilter
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private static final Logger JWTLogger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
-        JWTLogger.info("AuthenticationManager created");
         this.authenticationManager = authenticationManager;
     }
 
     /**
-     * we try to authenticate when pass the username and password to authenticationManager.authenticate()
+     * Try to authenticate when pass the username and password to authenticationManager.authenticate()
      * @param req
      * @param res
      * @return
@@ -45,14 +47,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             User credentials = new ObjectMapper()
                     .readValue(req.getInputStream(), User.class);
-
+            JWTLogger.info("User {} try to get authentication!", credentials.getUsername());
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             credentials.getUsername(),
                             credentials.getPassword(),
                             new ArrayList<>()));
         } catch (IOException e) {
-            throw new RuntimeException("IOException", e);
+            JWTLogger.error("Error: Failed to get Authentication, reason: {}", e.getMessage());
+            throw new RuntimeException("Error: Failed to get Authentication, reason: {}", e);
         }
     }
 

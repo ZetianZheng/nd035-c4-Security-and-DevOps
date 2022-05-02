@@ -58,13 +58,13 @@ public class UserController {
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
-		/** if length not right or confirm password not match, return 400 **/
+		// if length not right or confirm password not match, return 400
 		if (createUserRequest.getPassword().length() < 7 ||
 		!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
 			logger.error("Exception: User was not created, because password is bigger than 7 characters or password does not match");
 			return ResponseEntity.badRequest().build();
 		}
-		/** otherwise save this encode password using bCryptPassword **/
+		// Otherwise save this encode password using bCryptPassword
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 
 		userRepository.save(user);
