@@ -71,5 +71,4 @@ public class UserController {
 		logger.info("Success: User {}, been created!", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
-	
 }

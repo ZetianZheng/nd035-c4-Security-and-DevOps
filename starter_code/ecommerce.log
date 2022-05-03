@@ -21,3 +21,26 @@
 2022-05-01 17:22:01 INFO  [main] (OrderController.java:55) - Success: The order of user: zane found!
 2022-05-01 17:22:01 INFO  [main] (OrderController.java:36) - Info: try to find user by name: zane
 2022-05-01 17:22:01 INFO  [main] (OrderController.java:43) - Success: OrderId: null has been created by user: zane
+2022-05-01 23:56:02 INFO  [main] (UserController.java:43) - Info: try to find user by name: zane
+2022-05-01 23:56:02 ERROR [main] (UserController.java:46) - Exception: User zane, does not exist
+2022-05-01 23:56:02 INFO  [main] (UserController.java:37) - Info: try to find user by id: 1
+2022-05-01 23:56:02 INFO  [main] (UserController.java:43) - Info: try to find user by name: zane
+2022-05-01 23:56:02 INFO  [main] (UserController.java:49) - Success: User: zane found!
+2022-05-01 23:56:02 INFO  [main] (UserController.java:57) - Info: try to create user: username
+2022-05-01 23:56:02 ERROR [main] (UserController.java:64) - Exception: User was not created, because password is bigger than 7 characters or password does not match
+2022-05-01 23:56:02 INFO  [main] (UserController.java:57) - Info: try to create user: username
+2022-05-01 23:56:02 INFO  [main] (UserController.java:71) - Success: User username, been created!
+2022-05-01 23:56:02 INFO  [main] (CartController.java:65) - Info: try to remove item id: 1 from user: not_found
+2022-05-01 23:56:02 ERROR [main] (CartController.java:68) - Exception: User not_found, does not exist!
+2022-05-01 23:56:02 INFO  [main] (CartController.java:42) - Info: try to add item id: 1 to user: not_found
+2022-05-01 23:56:02 ERROR [main] (CartController.java:45) - Exception: User not_found, does not exist!
+2022-05-01 23:56:02 INFO  [main] (CartController.java:65) - Info: try to remove item id: 1 from user: zane
+2022-05-01 23:56:02 INFO  [main] (CartController.java:42) - Info: try to add item id: 1 to user: zane
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:36) - Info: try to find user by name: zane
+2022-05-01 23:56:02 ERROR [main] (OrderController.java:38) - Exception: User zane, does not exist!
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:50) - Info: try to get order for user: zane
+2022-05-01 23:56:02 ERROR [main] (OrderController.java:52) - Exception: User zane, does not exist!
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:50) - Info: try to get order for user: zane
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:55) - Success: The order of user: zane found!
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:36) - Info: try to find user by name: zane
+2022-05-01 23:56:02 INFO  [main] (OrderController.java:43) - Success: OrderId: null has been created by user: zane
