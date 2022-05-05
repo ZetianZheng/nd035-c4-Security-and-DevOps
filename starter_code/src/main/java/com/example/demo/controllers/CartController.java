@@ -54,7 +54,13 @@ public class CartController {
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
 			.forEach(i -> cart.addItem(item.get()));
-		cartRepository.save(cart);
+		try {
+			cartRepository.save(cart);
+		} catch (Exception e) {
+			logger.error("[addToCart] Error occurred while save cart.", e);
+			throw e;
+		}
+
 		return ResponseEntity.ok(cart);
 	}
 	

@@ -21,6 +21,8 @@ import java.util.Optional;
 import static com.example.demo.constants.MockConstants.getItem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 /** 
@@ -75,6 +77,11 @@ public class CartControllerTest {
         assertEquals(BigDecimal.valueOf(100), item.getPrice());
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testAddToCart_failed() {
+        doThrow(new RuntimeException("Cart Repository error!")).when(cartRepository).save(any(Cart.class));
+        cartController.addToCart(mcr);
+    }
     @Test
     public void testAddToCart_NotFound() {
         mcr.setUsername("not_found");
